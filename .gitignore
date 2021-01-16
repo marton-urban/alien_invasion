@@ -1,0 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Pycharm Gitignore template
+.idea
+__pychache__
+/venv/
