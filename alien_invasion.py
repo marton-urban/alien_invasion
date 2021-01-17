@@ -1,6 +1,7 @@
 import sys
 import pygame
 from settings import Settings
+from ship import Ship
 
 """Overall class to manage game assets and behavior."""
 class AlienInvasion:
@@ -12,6 +13,8 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("Alien Invasion")
 
+        self.ship = Ship(self)
+
     """Start the main loop for the game."""
     def run_game(self):
         # Watch for keyboard and mouse event.
@@ -22,6 +25,8 @@ class AlienInvasion:
 
             # Redraw the screen during eah pass through the loop.
             self.screen.fill(self.settings.bg_color)
+            self.ship.blitme()
+
             # Make the most recently drawn screen visible.
             pygame.display.flip()
 
