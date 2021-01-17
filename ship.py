@@ -2,7 +2,8 @@ import pygame
 
 """A class to manage the ship"""
 class Ship:
-    def __init__(self, ai_game):
+    """Initialize the ship and set its starting position."""
+    def __init__(self, ai_game):  # why not pass only ai_game.screen?
         self.screen = ai_game.screen
         self.screen_rect = ai_game.screen.get_rect()
 
@@ -15,3 +16,11 @@ class Ship:
     """Draw the ship at its current location."""
     def blitme(self):
         self.screen.blit(self.image, self.rect)
+
+# class Ship:
+#     def __init__(self, ai_game_screen):
+#         self.rect = pygame.image.load('images/ship.bmp').get_rect()
+#         self.rect.midbottom = ai_game_screen.get_rect().midbottom
+#
+#     def blitme(self, screen):
+#         screen.blit(pygame.image.load('images/ship.bmp'), self.rect)
