@@ -15,11 +15,14 @@ class Ship:
         # Start each new ship at the bottom center of the screen.
         self.rect.midbottom = self.screen_rect.midbottom
 
-        # Movement flag
+        # Movement flags
+        self.moving_left = False
         self.moving_right = False
 
-    """ Update the ship's position based on the movement flag. """
+    """ Update the ship's position based on the movement flag."""
     def update(self):
+        if self.moving_left:
+            self.rect.x -= 1
         if self.moving_right:
             self.rect.x += 1
 
