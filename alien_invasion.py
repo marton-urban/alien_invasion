@@ -5,6 +5,7 @@ from ship import Ship
 
 """Overall class to manage game assets and behavior."""
 class AlienInvasion:
+
     """Initialize the game, and create game resources."""
     def __init__(self):
         pygame.init()
@@ -20,13 +21,27 @@ class AlienInvasion:
         # Watch for keyboard and mouse event.
         while True:
             self._check_events()
+            self.ship.update()
             self._update_screen()
 
     """Respond to keypresses and mouse events."""
     def _check_events(self):
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 sys.exit()
+
+            elif event.type == pygame.KEYDOWN:
+
+                # Move the ship to the right
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = True
+
+            elif event.type == pygame.KEYUP:
+
+                # Stop moving the ship to the right
+                if event.key == pygame.K_RIGHT:
+                    self.ship.moving_right = False
 
     """Update images on the screen, and flip to the new screen."""
     def _update_screen(self):
