@@ -19,9 +19,7 @@ class AlienInvasion:
     def run_game(self):
         # Watch for keyboard and mouse event.
         while True:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    sys.exit()
+            self._check_events()
 
             # Redraw the screen during eah pass through the loop.
             self.screen.fill(self.settings.bg_color)
@@ -29,6 +27,12 @@ class AlienInvasion:
 
             # Make the most recently drawn screen visible.
             pygame.display.flip()
+
+    """Respond to keypresses and mouse events."""
+    def _check_events(self):
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                sys.exit()
 
 
 # Make a game instance, and run the game.
