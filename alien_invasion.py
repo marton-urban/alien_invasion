@@ -22,7 +22,7 @@ class AlienInvasion:
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
 
-        self.create_fleet()
+        self._create_fleet()
 
     """Start the main loop for the game."""
     def run_game(self):
@@ -56,10 +56,21 @@ class AlienInvasion:
                 self.bullets.remove(bullet)
 
     """Create the fleet of aliens."""
-    def create_fleet(self):
-        # Make an alien.
+    def _create_fleet(self):
+        # Create an alien and find the number of aliens in a row.
+        # Spacing between each alien is equal to one alien width.
         alien = Alien(self)
-        self.aliens.add(alien)
+        alien_width = alien.rect.x
+        available_space_x = self.settings.screen_width - (2 * alien_width)
+        number_aliens_x = available_space_x // (2 * alien_width)
+
+        # Create the first row of aliens.
+        for alien_number in range(number_aliens_x):
+            # Create an alien and place it in the row.
+            alien = Alien(self)
+            alien.x = alien_width + 2 * alien_width * alien_number
+            alien.rect.x = alien.x
+            self.aliens.add(alien)
 
     """Update images on the screen, and flip to the new screen."""
     def _update_screen(self):
@@ -69,6 +80,7 @@ class AlienInvasion:
         # Draw the bullets
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
+        # Draw the first row of aliens # pygame.sprite.Group.draw(self.aliens, self.screen)
         self.aliens.draw(self.screen)
 
         # Make the most recently drawn screen visible.
