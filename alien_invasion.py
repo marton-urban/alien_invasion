@@ -11,12 +11,10 @@ from alien import Alien
 
 """Overall class to manage game assets and behavior."""
 class AlienInvasion:
-
     """Initialize the game, and create game resources."""
     def __init__(self):
         pygame.init()
         self.settings = Settings()
-
         self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.settings.screen_width = self.screen.get_rect().width
         self.settings.screen_height = self.screen.get_rect().height
@@ -172,8 +170,9 @@ class AlienInvasion:
     """Respond to the ship being hit by an alien."""
     def _ship_hit(self):
         if self.stats.ships_left > 0:
-            # Decrement ships_left
+            # Decrement ships_left, and update scoreboard.
             self.stats.ships_left -= 1
+            self.sb.prep_ships()
 
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
@@ -235,6 +234,7 @@ class AlienInvasion:
             self.stats.game_active = True
             self.sb.prep_score()
             self.sb.prep_level()
+            self.sb.prep_ships()
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
             self.bullets.empty()
@@ -246,4 +246,5 @@ class AlienInvasion:
 # Make a game instance, and run the game.
 if __name__ == '__main__':
     ai = AlienInvasion()
+    print(ai.stats.game_active)
     ai.run_game()
