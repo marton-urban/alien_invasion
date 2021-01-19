@@ -78,7 +78,8 @@ class AlienInvasion:
         # Remove any bullets and aliens that have collided.
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
         if collisions:
-            self.stats.score += self.settings.alien_points
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
             self.sb.prep_score()
         # Destroy existing bullets and create new fleet.
         if not self.aliens:
@@ -227,7 +228,7 @@ class AlienInvasion:
             # Reset the game statistics.
             self.stats.reset_stats()
             self.stats.game_active = True
-            self.fb.prep_score()
+            self.sb.prep_score()
             # Get rid of any remaining aliens and bullets.
             self.aliens.empty()
             self.bullets.empty()
