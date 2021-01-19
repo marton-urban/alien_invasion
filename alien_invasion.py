@@ -79,6 +79,7 @@ class AlienInvasion:
         if not self.aliens:
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     """Check if the fleet is at an edge, then update the positions of all aliens in the fleet."""
     def _update_aliens(self):
