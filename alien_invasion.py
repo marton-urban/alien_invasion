@@ -56,8 +56,9 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
-    """Update the positions of all aliens in the fleet."""
+    """Check if the fleet is at an edge, then update the positions of all aliens in the fleet."""
     def _update_aliens(self):
+        self._check_fleet_edges()
         self.aliens.update()
 
     """Create the fleet of aliens."""
@@ -81,13 +82,26 @@ class AlienInvasion:
                 self._create_alien(alien_number, row_number)
 
     """Create an alien and place it in the row."""
-    def _create_alien(self, alien_number, row_number): # why not add alien_width and alien_height to the parameters?
+    def _create_alien(self, alien_number, row_number):  # why not add alien_width and alien_height to the parameters?
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
         alien.x = alien_width + 2 * alien_width * alien_number
         alien.rect.x = alien.x
         alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
         self.aliens.add(alien)
+
+    """Respond appropriately if any aliens have reached an edge."""
+    def _check_fleet_edges(self):
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+
+    """Drop the entire fleet and change the fleet's direction."""
+    def _change_fleet_direction(self):
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
 
     """Update images on the screen, and flip to the new screen."""
     def _update_screen(self):
