@@ -246,5 +246,4 @@ class AlienInvasion:
 # Make a game instance, and run the game.
 if __name__ == '__main__':
     ai = AlienInvasion()
-    print(ai.stats.game_active)
     ai.run_game()
